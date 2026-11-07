@@ -46,7 +46,7 @@ h2{font-family:var(--display);font-weight:700;font-size:26px;margin:0;line-heigh
 .sub{color:var(--muted);font-size:13.5px;margin-top:2px}
 .badge{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--accent);color:var(--accent-ink);white-space:nowrap}
 .badge.star{background:var(--chip);color:var(--fg)}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
 .kv{background:var(--chip);border-radius:10px;padding:9px 11px;min-width:0}
 .kv .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .kv .v{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;margin-top:2px}
@@ -83,12 +83,22 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
   h2{font-size:23px}
 }
 @media (prefers-reduced-motion:no-preference){ .viewer .main img{transition:opacity .2s} }
+/* Admin view: prices and Book buttons only show when html has .admin */
+.admin-only{display:none!important}
+html.admin .admin-only{display:revert!important}
+html.admin .kv.price.admin-only{display:block!important}
+html.admin .btn.admin-only{display:inline-block!important}
+html:not(.admin) .btn.route{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.admin-btn{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));font:600 13px var(--body);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.admin-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.admin-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 
 </head>
 <body>
 <div class="wrap">
 <header>
+  <button id="adminToggle" class="admin-btn" type="button" aria-pressed="false">Admin</button>
   <h1>Dinner before David Sedaris, Saturday Nov 14</h1>
   <p class="lede">Six places with a table for four open on Nov 14 that can get you to the War Memorial Opera House before the 8:00 PM curtain. Omakase counters first, then the two Michelin-starred Thai rooms nearby. Click the thumbnails to flip through food and room photos.</p>
   <div class="show">
@@ -96,7 +106,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <span><b>Venue:</b> War Memorial Opera House, 301 Van Ness Ave</span>
     <span><b>Party:</b> 4 · <b>Checked:</b> Nov 7, 2026</span>
   </div>
-  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = open for 4 and done before 8</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = open, with a catch</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = after curtain</span><span>Price: $ under $75 · $$ $75 to $150 · $$$ over $150 per person. Hover the price for the actual number.</span></div>
+  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = open for 4 and done before 8</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = open, with a catch</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = after curtain</span><span class="admin-only">Price: $ under $75 · $$ $75 to $150 · $$$ over $150 per person. Hover the price for the actual number.</span></div>
 </header>
 
 <!-- SATO -->
@@ -115,14 +125,14 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Sato Omakase</h2><div class="sub">1117 Polk St · Edomae-style, 18 courses · Michelin Plate</div></div><span class="badge">Top pick</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">14 min<small>0.7 mi down Polk and Van Ness</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$195 per person, 18 courses, plus 20% service. $100 per person deposit, applied to the bill.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$195 per person, 18 courses, plus 20% service. $100 per person deposit, applied to the bill.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>332 reviews · Infatuation 8.3</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM sushi bar</span><span class="note">4 slots left when checked</span></div>
     <p class="note" style="margin:0">Sit 5:30, finish around 7:30, and you are at the Opera House by 7:45 on foot.</p>
     <blockquote>"We have enjoyed omakase at many of the best rated sushi restaurants in the US, and Sato is at the top without a doubt."<cite>David, OpenTable, dined Oct 9, 2026</cite></blockquote>
     <blockquote>"Butter-poached lobster is decked out with caviar, and black truffle is shaved over melt-in-your-mouth seared yellowtail."<cite>The Infatuation, 8.3</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://www.opentable.com/r/sato-omakase-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn" href="https://www.google.com/maps/dir/1117+Polk+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/sato-omakase-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/1117+Polk+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
   </div>
 </section>
 
@@ -140,14 +150,14 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Hinata Sushi</h2><div class="sub">810 Van Ness Ave · Omakase prix fixe</div></div><span class="badge star">Closest</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">8 min<small>0.4 mi straight down Van Ness</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>per person</small></div><div class="amt">About $128 per person, prix fixe omakase.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>per person</small></div><div class="amt">About $128 per person, prix fixe omakase.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.9 OpenTable<small>306 reviews · Time Out 5/5</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM omakase</span><span class="note">3 slots left when checked</span></div>
-    <p class="note" style="margin:0">The least expensive and the easiest logistics. A step down in ambition from Sato or Wako.</p>
+    <p class="note" style="margin:0">The easiest logistics of the group. A step down in ambition from Sato or Wako.</p>
     <blockquote>"Always one of my favorite omakase spots. The staff is amazing, the food is unreal, and such a cute nice vibe."<cite>Nikki, OpenTable, dined Oct 29, 2026</cite></blockquote>
     <blockquote>"An 'amazing' omakase experience with 'fantastic' food and 'thoughtful' service at a remarkable price point."<cite>OpenTable review summary, 306 reviews</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://www.opentable.com/r/hinata-sushi-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn" href="https://www.google.com/maps/dir/810+Van+Ness+Ave,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/hinata-sushi-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/810+Van+Ness+Ave,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
   </div>
 </section>
 
@@ -168,14 +178,14 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Robin</h2><div class="sub">620 Gough St · Contemporary omakase, you set the spend</div></div><span class="badge star">Patio only</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">6 min<small>0.3 mi, Gough to Grove</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$ to $$$<small>you pick the tier</small></div><div class="amt">$109 to $209 per person. You choose the spend when you sit down and the courses scale to it.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$ to $$$<small>you pick the tier</small></div><div class="amt">$109 to $209 per person. You choose the spend when you sit down and the courses scale to it.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.7 Resy<small>9.4K reviews · Google 4.5 · Infatuation 8.3</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot warn">5:30 PM outdoor</span><span class="slot late">8:30 PM dining room</span><span class="slot late">9:30 PM</span></div>
     <p class="note" style="margin:0">Best location of the group, but for four the only pre-show table is the patio. For two, the sushi bar at 5:30 is open.</p>
     <blockquote>"For milestone date nights or an extra nice dinner before a show nearby, this place always adds up to a fun time."<cite>The Infatuation, 8.3</cite></blockquote>
     <blockquote>"Whatever you do, just make sure you get the A5 tartare. It's A-plus."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://resy.com/cities/san-francisco-ca/venues/robin-san-francisco?date=2026-11-14&seats=4">Book on Resy</a><a class="btn" href="https://www.google.com/maps/dir/620+Gough+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/robin-san-francisco?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/620+Gough+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
   </div>
 </section>
 
@@ -195,14 +205,14 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Wako</h2><div class="sub">211 Clement St, Inner Richmond · Michelin-recommended omakase</div></div><span class="badge star">Needs a car</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Ride to show</div><div class="v">15 min<small>3.2 mi via Geary; no sane walk</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$165 per person for the omakase, or $120 for the sushi tasting.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$165 per person for the omakase, or $120 for the sushi tasting.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>779 reviews · Infatuation 8.4</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
     <p class="note" style="margin:0">The most serious sushi with a seat for four. Take the 5:30, book a car for 7:30.</p>
     <blockquote>"Don't let the quiet, quasi-suburban neighborhood fool you; this place is a true gem! We had a delicious, reasonably-priced omakase."<cite>Matt, OpenTable, dined Sep 2, 2026</cite></blockquote>
     <blockquote>"It's a lot of food, and you get your money's worth."<cite>The Infatuation, 8.4</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://www.exploretock.com/city/san-francisco/search?date=2026-11-14&size=4&time=17%3A30&query=wako">Book on Tock</a><a class="btn" href="https://www.google.com/maps/dir/211+Clement+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/">Driving route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://www.exploretock.com/city/san-francisco/search?date=2026-11-14&size=4&time=17%3A30&query=wako">Book on Tock</a><a class="btn route" href="https://www.google.com/maps/dir/211+Clement+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/">Driving route</a></div>
   </div>
 </section>
 
@@ -221,13 +231,13 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Kin Khao</h2><div class="sub">55 Cyril Magnin St (Parc 55 hotel) · Thai, à la carte</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">16 min<small>0.8 mi along Market and Grove</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>shared plates</small></div><div class="amt">Roughly $60 to $90 per person, à la carte and shared.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>shared plates</small></div><div class="amt">Roughly $60 to $90 per person, à la carte and shared.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>15K reviews · OpenTable 4.3 · Time Out 5/5</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
     <p class="note" style="margin:0">Not omakase, but the fastest starred meal here: order and be out in 90 minutes. Get the rabbit green curry, pretty hot wings and khao soi.</p>
     <blockquote>"Because this celebrated Thai eatery is as delicious as it gets, churning house-made curry pastes and condiments daily, for fiery goodness."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://resy.com/cities/san-francisco-ca/venues/kin-khao?date=2026-11-14&seats=4">Book on Resy</a><a class="btn" href="https://www.google.com/maps/dir/55+Cyril+Magnin+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/kin-khao?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/55+Cyril+Magnin+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
   </div>
 </section>
 
@@ -248,13 +258,13 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Nari</h2><div class="sub">1625 Post St (Hotel Kabuki), Japantown · Thai, family style</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
       <div class="kv"><div class="k">To the show</div><div class="v">7 min ride<small>1.1 mi; a 22 min walk down Gough</small></div></div>
-      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>family style</small></div><div class="amt">Roughly $80 to $125 per person; the set tasting menu starts at $125.</div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>family style</small></div><div class="amt">Roughly $80 to $125 per person; the set tasting menu starts at $125.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>7.4K reviews</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot late">7:45 PM</span><span class="slot late">8:00 PM</span></div>
     <p class="note" style="margin:0">The prettiest room of the six and the best for a group of four who want to share. Sit 5:30, leave by 7:20.</p>
     <blockquote>"Pim Techamuanvivit has created one of the country's most exciting restaurants, a women-led operation that expertly (and deliciously) blends Thai traditions, California ingredients, and best-in-class hospitality."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary" href="https://resy.com/cities/san-francisco-ca/venues/nari?date=2026-11-14&seats=4">Book on Resy</a><a class="btn" href="https://www.google.com/maps/dir/1625+Post+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/nari?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/1625+Post+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
   </div>
 </section>
 
@@ -263,7 +273,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
   <table>
     <tr><td>Kiln (2 stars)</td><td>149 Fell St, three blocks from the venue, but nothing bookable on Tock for that date.</td></tr>
     <tr><td>Birdsong (2 stars)</td><td>1085 Mission St. No availability on Nov 14; next open date is Nov 16.</td></tr>
-    <tr><td>Jū-Ni</td><td>1335 Fulton St. Only 8:00 and 8:15 PM for four ($238 pp). A 5:30 seat exists for two.</td></tr>
+    <tr><td>Jū-Ni</td><td>1335 Fulton St. Only 8:00 and 8:15 PM for four. A 5:30 seat exists for two.</td></tr>
     <tr><td>State Bird Provisions (1 star)</td><td>9:30 and 9:45 PM only.</td></tr>
     <tr><td>The Progress (1 star)</td><td>No availability on Nov 14.</td></tr>
     <tr><td>Nisei (1 star)</td><td>8:45 PM only.</td></tr>
@@ -288,6 +298,13 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
     });
   });
 });
+(function(){
+  var b=document.getElementById("adminToggle"), root=document.documentElement;
+  function set(on){ root.classList.toggle("admin",on); b.setAttribute("aria-pressed",on?"true":"false"); b.textContent=on?"Admin on":"Admin"; }
+  var saved=false; try{ saved=localStorage.getItem("sedarisAdmin")==="1"; }catch(e){}
+  set(saved);
+  b.addEventListener("click",function(){ var on=!root.classList.contains("admin"); set(on); try{ localStorage.setItem("sedarisAdmin",on?"1":"0"); }catch(e){} });
+})();
 </script>
 </body>
 </html>
