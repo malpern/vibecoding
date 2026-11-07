@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>:root{color-scheme:light dark}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preload" as="image" href="img/irene.jpg">
+<style>:root{color-scheme:light dark}body{margin:0;font-size:14px;background:#07060a}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Dinner Before Sedaris</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
 <style>
 /* Layout: one column of restaurant cards, each a photo viewer on the left and facts on the right; stacks on phones. */
 :root{
@@ -187,16 +188,113 @@ html.quake .wrap{animation:quake .5s linear .26s 2}
     .tk-hear{margin-top:0}  .tk-main{padding:18px 18px}
 }
 @media (prefers-reduced-motion:reduce){.tk-scribble,.tk-stamp{animation:none;stroke-dashoffset:0;opacity:.88;transform:rotate(-14deg)}}
+
+/* Opening titles */
+html.intro-on,html.intro-on body{overflow:hidden}
+html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
+.intro{position:fixed;inset:0;z-index:200;background:#07060a;color:#f6efe3;overflow:hidden;clip-path:circle(150% at 48% 46%)}
+.intro.iris{transition:clip-path 1.25s cubic-bezier(.7,0,.25,1);clip-path:circle(0% at 48% 46%)}
+.in-photo{position:absolute;inset:0;opacity:0;animation:inPhoto 1.6s ease-out 3.7s forwards}
+.in-photo img{width:100%;height:100%;max-width:none;object-fit:cover;object-position:48% 47%;transform-origin:48% 49%;filter:saturate(.82) contrast(1.08) sepia(.14) brightness(.92);animation:kenburns 6.4s cubic-bezier(.25,.1,.25,1) 3.7s both}
+@keyframes inPhoto{to{opacity:1}}
+@keyframes kenburns{0%{transform:scale(1.04) translateY(1%)}100%{transform:scale(1.85) translateY(0)}}
+.in-shade{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 48% 42%,transparent 25%,rgba(5,4,8,.55) 75%),linear-gradient(to top,rgba(5,4,8,.88) 0,rgba(5,4,8,.35) 38%,transparent 60%);animation:inPhoto 1.6s ease-out 3.9s forwards}
+.in-bar{position:absolute;left:0;right:0;height:0;background:#07060a;z-index:3;animation:bars 1.2s cubic-bezier(.6,0,.2,1) 3.4s forwards}
+.in-bar.top{top:0}.in-bar.bot{bottom:0}
+@keyframes bars{to{height:7vh}}
+.in-scene{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.in-scene.one{align-items:center;justify-content:center;text-align:center;gap:14px;animation:sceneOut .8s ease-in 3.2s forwards}
+@keyframes sceneOut{to{opacity:0;transform:scale(1.04);filter:blur(6px)}}
+.in-date{display:flex;gap:.8em;align-items:center;font:600 clamp(11px,1.5vw,15px) var(--body);text-transform:uppercase;color:#e7c98a;opacity:0;letter-spacing:.9em;animation:track 1.6s cubic-bezier(.2,.7,.2,1) .35s forwards}
+.in-date i{font-style:normal;opacity:.6}
+@keyframes track{to{opacity:1;letter-spacing:.38em}}
+.in-big{font:900 clamp(56px,13vw,180px)/.92 var(--display);letter-spacing:-.025em}
+.in-big .w{display:inline-block;opacity:0;transform:translateY(.45em) rotate(2deg);filter:blur(8px);animation:wordIn .9s cubic-bezier(.2,.9,.2,1) forwards}
+.in-big .w:nth-child(1){animation-delay:.9s}.in-big .w:nth-child(2){animation-delay:1.08s}.in-big .w:nth-child(3){animation-delay:1.26s}
+@keyframes wordIn{to{opacity:1;transform:none;filter:none}}
+.in-with{font:italic 400 clamp(18px,2.6vw,30px) var(--display);color:#d9cdbb;opacity:0;animation:fadeUp .8s ease-out 1.75s forwards}
+.in-plan{font:600 clamp(12px,1.4vw,15px) var(--body);letter-spacing:.3em;text-transform:uppercase;color:#a99c8a;opacity:0;animation:fadeUp .8s ease-out 2.25s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.in-scene.two{justify-content:flex-end;padding-bottom:calc(9vh + 18px);gap:2px}
+.in-and{font:italic 400 clamp(18px,2.4vw,28px) var(--display);color:#e9dfcf;opacity:0;animation:fadeUp .9s ease-out 4.9s forwards}
+.in-cel{font:600 clamp(12px,1.5vw,16px) var(--body);letter-spacing:.55em;text-transform:uppercase;color:#e7c98a;opacity:0;animation:track2 1.2s cubic-bezier(.2,.7,.2,1) 5.5s forwards;margin-top:6px}
+@keyframes track2{from{opacity:0;letter-spacing:1.1em}to{opacity:1;letter-spacing:.55em}}
+.in-name{font:italic 600 clamp(84px,19vw,280px)/.86 var(--display);letter-spacing:-.03em;opacity:0;transform:scale(1.12);filter:blur(14px);transform-origin:left bottom;animation:nameIn 1.3s cubic-bezier(.16,1,.3,1) 6s forwards;text-shadow:0 8px 40px rgba(0,0,0,.45)}
+@keyframes nameIn{to{opacity:1;transform:none;filter:none}}
+.in-turns{font:900 clamp(30px,5.4vw,78px)/1 var(--display);opacity:0;animation:fadeUp .7s ease-out 6.9s forwards;margin-top:4px}
+.in-turns b{color:#f0c76a;font-variant-numeric:tabular-nums;display:inline-block;min-width:1.25em}
+.in-turns.pop b{animation:pop .45s cubic-bezier(.2,1.8,.4,1)}
+@keyframes pop{50%{transform:scale(1.35)}}
+.in-skip{position:absolute;z-index:6;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));font:600 13px var(--body);letter-spacing:.12em;text-transform:uppercase;color:#cfc4b4;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;cursor:pointer;opacity:0;animation:fadeUp .6s ease-out .8s forwards}
+.in-skip:hover{color:#fff;background:rgba(255,255,255,.16)}
+.in-skip:focus-visible{outline:2px solid #e7c98a;outline-offset:2px}
+.in-spark{position:absolute;z-index:5;width:6px;height:6px;border-radius:50%;background:#f6d98a;box-shadow:0 0 12px 3px rgba(246,217,138,.7);pointer-events:none}
+@media (prefers-reduced-motion:reduce){
+  .intro *{animation-duration:.01s!important;animation-delay:0s!important}
+  .in-scene.one{display:none}
+  .in-photo img{transform:scale(1.3)}
+  .intro.iris{transition:opacity .6s;clip-path:none;opacity:0}
+}
 </style>
 
 </head>
 <body>
 <div class="wrap">
+<div id="intro" class="intro" aria-label="Opening titles" role="dialog">
+  <div class="in-photo"><img src="img/irene.jpg" alt="Irene laughing in a tall-grass meadow, hands on her hips" decoding="async"></div>
+  <div class="in-shade"></div>
+  <div class="in-bar top"></div><div class="in-bar bot"></div>
+  <div class="in-scene one">
+    <div class="in-date"><span>Saturday</span><i>·</i><span>November 14</span></div>
+    <div class="in-big"><span class="w">A</span> <span class="w">night</span> <span class="w">out</span></div>
+    <div class="in-with">with the Alperns &amp; the Tollingers</div>
+    <div class="in-plan"><span>Dinner.</span> <span>Then David Sedaris.</span></div>
+  </div>
+  <div class="in-scene two">
+    <div class="in-and">and, most of all,</div>
+    <div class="in-cel">celebrating</div>
+    <div class="in-name">Irene</div>
+    <div class="in-turns">turns <b id="in50">50</b></div>
+  </div>
+  <button type="button" class="in-skip" id="introSkip">Skip</button>
+</div>
+<script>
+(function(){
+  var intro=document.getElementById("intro"); if(!intro) return;
+  var root=document.documentElement, reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.classList.add("intro-on");
+  var done=false, timers=[];
+  function later(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function finish(){
+    if(done) return; done=true; timers.forEach(clearTimeout);
+    intro.classList.add("iris");
+    setTimeout(function(){ root.classList.remove("intro-on"); intro.remove(); }, reduce?650:1300);
+  }
+  document.getElementById("introSkip").addEventListener("click",finish);
+  document.addEventListener("keydown",function(e){ if(!done&&(e.key==="Escape"||e.key===" "||e.key==="Enter")){ e.preventDefault(); finish(); } });
+  // count up to 50 as "turns 50" lands
+  var n=document.getElementById("in50"), turns=n.parentNode;
+  if(!reduce){
+    n.textContent="0";
+    later(function(){ var t0=performance.now(); (function step(t){ var p=Math.min(1,(t-t0)/850), e=1-Math.pow(1-p,3); n.textContent=Math.round(e*50); if(p<1) requestAnimationFrame(step); else { turns.classList.add("pop"); sparkle(); } })(t0); },7000);
+  }
+  function sparkle(){
+    var r=n.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+    for(var i=0;i<26;i++){ (function(){
+      var s=document.createElement("span"); s.className="in-spark"; intro.appendChild(s);
+      var a=Math.random()*Math.PI*2, d=40+Math.random()*120, sz=3+Math.random()*5; s.style.width=s.style.height=sz+"px";
+      s.style.left=cx+"px"; s.style.top=cy+"px";
+      s.animate([{transform:"translate(-50%,-50%) scale(1)",opacity:1},{transform:"translate("+(Math.cos(a)*d-sz/2)+"px,"+(Math.sin(a)*d-sz/2)+"px) scale(.2)",opacity:0}],{duration:900+Math.random()*600,easing:"cubic-bezier(.2,.8,.3,1)",fill:"forwards"});
+    })(); }
+  }
+  later(finish, reduce?3200:10400);
+})();
+</script>
 <header>
   <button id="adminToggle" class="admin-btn gear" type="button" aria-pressed="false" aria-label="Admin view" title="Admin view"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   <div class="ticket" id="ticket">
     <div class="tk-main">
-      <div class="tk-eyebrow">A night out with the Alperns &amp; the Tollingers</div>
+      <div class="tk-eyebrow">A night out with the Alperns &amp; the Tollingers · Irene turns 50</div>
       <div class="tk-title">An Evening with <span class="tk-name">David Sedaris<svg class="tk-scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 60 4, 120 22, 180 10 S 270 6, 297 14" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M40 20 C 110 14, 190 21, 260 17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".6"/></svg></span></div>
       <div class="tk-meta"><span>War Memorial Opera House</span><span>301 Van Ness Ave</span><span>Sat, Nov 14 · 8:00 PM</span></div>
       <div class="tk-count" id="countdown" aria-live="off"></div>
