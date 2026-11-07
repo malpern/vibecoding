@@ -92,6 +92,32 @@ html:not(.admin) .btn.route{background:var(--accent);color:var(--accent-ink);bor
 .admin-btn{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));font:600 13px var(--body);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .admin-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .admin-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Voting */
+.corner{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;gap:8px}
+.corner .admin-btn{position:static}
+.vote{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vote-btn{display:inline-flex;align-items:center;gap:7px;font:600 14px var(--body);padding:8px 15px;border-radius:999px;border:2px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;text-decoration:none;transition:transform .12s}
+.vote-btn:hover{transform:translateY(-1px)}
+.vote-btn:active{transform:scale(.95)}
+.vote-btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.vote-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.vote-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vote-count{font-weight:600;font-variant-numeric:tabular-nums}
+.vote.leading .vote-count::after{content:" \00b7  leading";color:var(--good)}
+.voters{display:flex;align-items:center}
+.voters .av{width:26px;height:26px;border-radius:50%;border:2px solid var(--card);margin-left:-7px;background:var(--chip)}
+.voters .av:first-child{margin-left:0}
+.tally{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.tally .chip{background:var(--chip);border-radius:999px;padding:4px 11px;font-weight:600;font-variant-numeric:tabular-nums}
+.tally .chip.lead{background:var(--accent);color:var(--accent-ink)}
+.tally .msg{color:var(--muted)}
+.tally a{color:var(--accent);font-weight:600}
+.burst{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.burst span{position:absolute;left:0;top:0;font-size:30px;line-height:1;will-change:transform,opacity}
+.shout{position:fixed;z-index:51;pointer-events:none;font:700 21px var(--display);background:var(--fg);color:var(--bg);padding:8px 15px;border-radius:14px;white-space:nowrap;animation:shout 1.5s ease-out forwards}
+.shout small{display:block;font:500 11px var(--body);opacity:.75;text-align:center}
+@keyframes shout{0%{opacity:0;transform:translate(-50%,0) scale(.6)}14%{opacity:1;transform:translate(-50%,-16px) scale(1.1)}75%{opacity:1;transform:translate(-50%,-30px) scale(1)}100%{opacity:0;transform:translate(-50%,-44px) scale(1)}}
+@media (prefers-reduced-motion:reduce){.shout{animation:none;transform:translate(-50%,-20px)}.vote-btn{transition:none}}
 </style>
 
 </head>
@@ -304,6 +330,160 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
   var saved=false; try{ saved=localStorage.getItem("sedarisAdmin")==="1"; }catch(e){}
   set(saved);
   b.addEventListener("click",function(){ var on=!root.classList.contains("admin"); set(on); try{ localStorage.setItem("sedarisAdmin",on?"1":"0"); }catch(e){} });
+})();
+</script>
+<script>
+(function(){
+  var PICKS={sato:"Sato",hinata:"Hinata",robin:"Robin",wako:"Wako",kinkhao:"Kin Khao",nari:"Nari"};
+  var VOTE_URL="https://claude.ai/artifact/DtyGZ7Fsd6cRt18DGodaYC";
+  var SHOUTS=[["いらっしゃいませ!","Irasshaimase!"],["へい、らっしゃい!","Hei, rasshai!"],["ありがとうございます!","Arigatou gozaimasu!"],["まいど!","Maido!"]];
+  var EMOJI=["🍣","🍣","🍣","🍤","🍙","🐟","🥢","🍥","🦐"];
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var db=null,user=null,me=null,votes={},canWrite=false,ready=false,note="",busy=false,live=false;
+
+  // Corner controls: sound toggle beside Admin
+  var corner=document.createElement("div"); corner.className="corner";
+  var admin=document.getElementById("adminToggle");
+  var snd=document.createElement("button"); snd.type="button"; snd.className="admin-btn"; snd.id="soundToggle";
+  var soundOn=true; try{ soundOn=localStorage.getItem("sedarisSound")!=="0"; }catch(e){}
+  function paintSnd(){ snd.textContent=soundOn?"Sound on":"Sound off"; snd.setAttribute("aria-pressed",soundOn?"true":"false"); }
+  snd.addEventListener("click",function(){ soundOn=!soundOn; paintSnd(); try{ localStorage.setItem("sedarisSound",soundOn?"1":"0"); }catch(e){} });
+  paintSnd(); corner.appendChild(snd); if(admin) corner.appendChild(admin); document.body.appendChild(corner);
+
+  // Vote bar on each card
+  var bars={};
+  Object.keys(PICKS).forEach(function(k){
+    var card=document.getElementById(k); if(!card) return;
+    var top=card.querySelector(".facts .top");
+    var bar=document.createElement("div"); bar.className="vote";
+    var btn=document.createElement("button"); btn.type="button"; btn.className="vote-btn"; btn.disabled=true;
+    btn.innerHTML='<span aria-hidden="true">🍣</span><span class="lbl">Vote for '+PICKS[k]+'</span>';
+    var count=document.createElement("span"); count.className="vote-count";
+    var voters=document.createElement("span"); voters.className="voters";
+    bar.append(btn,count,voters); top.after(bar);
+    btn.addEventListener("click",function(){ onVote(k,btn); });
+    bars[k]={bar:bar,btn:btn,count:count,voters:voters};
+  });
+  var tally=document.createElement("div"); tally.className="tally"; tally.setAttribute("aria-live","polite");
+  document.querySelector("header").appendChild(tally);
+
+  function linkMode(){
+    Object.keys(bars).forEach(function(k){
+      var b=bars[k], a=document.createElement("a"); a.className="vote-btn"; a.href=VOTE_URL; a.target="_blank"; a.rel="noopener";
+      a.innerHTML='<span aria-hidden="true">🍣</span><span>Vote on the shared page</span>'; b.btn.replaceWith(a);
+    });
+    tally.replaceChildren(); var m=document.createElement("span"); m.className="msg"; m.textContent="Voting happens on the shared page: ";
+    var a=document.createElement("a"); a.href=VOTE_URL; a.target="_blank"; a.rel="noopener"; a.textContent="open it to vote"; m.appendChild(a); tally.appendChild(m);
+  }
+
+  async function render(){
+    var byPick={}; Object.keys(votes).forEach(function(uid){ var p=votes[uid]; if(PICKS[p]) (byPick[p]=byPick[p]||[]).push(uid); });
+    var ids=Object.keys(votes), ps={};
+    if(user&&ids.length){ try{ ps=await user.profiles(ids); }catch(e){} }
+    var max=0; Object.keys(byPick).forEach(function(k){ max=Math.max(max,byPick[k].length); });
+    var leaders=Object.keys(byPick).filter(function(k){ return byPick[k].length===max&&max>0; });
+    Object.keys(bars).forEach(function(k){
+      var b=bars[k], list=byPick[k]||[], mine=!!me&&votes[me]===k;
+      b.btn.setAttribute("aria-pressed",mine?"true":"false");
+      b.btn.querySelector(".lbl").textContent=mine?"Your pick (tap to undo)":"Vote for "+PICKS[k];
+      b.btn.disabled=!(canWrite&&ready);
+      b.count.textContent=list.length?list.length+(list.length===1?" vote":" votes"):"";
+      b.bar.classList.toggle("leading",leaders.length===1&&leaders[0]===k);
+      b.voters.replaceChildren.apply(b.voters,list.map(function(id){
+        var p=ps[id]||{}, img=document.createElement("img"); img.className="av"; img.alt=""; if(p.avatarUrl) img.src=p.avatarUrl;
+        img.title=p.isMe?"You":(p.name||"Someone"); return img;
+      }));
+    });
+    tally.replaceChildren();
+    var order=Object.keys(byPick).sort(function(a,b){ return byPick[b].length-byPick[a].length; });
+    if(order.length){
+      var lab=document.createElement("span"); lab.className="msg"; lab.textContent=ids.length+(ids.length===1?" vote so far:":" votes so far:"); tally.appendChild(lab);
+      order.forEach(function(k){ var c=document.createElement("span"); c.className="chip"+(leaders.length===1&&leaders[0]===k?" lead":""); c.textContent=PICKS[k]+" "+byPick[k].length; tally.appendChild(c); });
+    } else if(ready){
+      var e=document.createElement("span"); e.className="msg"; e.textContent="No votes yet. Pick your favorite with the Vote button on any card."; tally.appendChild(e);
+    } else {
+      var l=document.createElement("span"); l.className="msg"; l.textContent="Loading votes…"; tally.appendChild(l);
+    }
+    if(note){ var n=document.createElement("span"); n.className="msg"; n.textContent=note; tally.appendChild(n); }
+  }
+
+  // Sound: a taiko hit plus a chef's shout
+  var ac=null;
+  function taiko(){
+    try{
+      ac=ac||new (window.AudioContext||window.webkitAudioContext)(); var t=ac.currentTime;
+      var o=ac.createOscillator(), g=ac.createGain(); o.type="sine"; o.frequency.setValueAtTime(140,t); o.frequency.exponentialRampToValueAtTime(48,t+0.35);
+      g.gain.setValueAtTime(0.9,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.5); o.connect(g).connect(ac.destination); o.start(t); o.stop(t+0.55);
+      var len=ac.sampleRate*0.08, buf=ac.createBuffer(1,len,ac.sampleRate), d=buf.getChannelData(0); for(var i=0;i<len;i++) d[i]=(Math.random()*2-1)*(1-i/len);
+      var n=ac.createBufferSource(), ng=ac.createGain(); n.buffer=buf; ng.gain.value=0.35; n.connect(ng).connect(ac.destination); n.start(t);
+    }catch(e){}
+  }
+  function speak(jp,romaji){
+    try{
+      if(!("speechSynthesis" in window)) return;
+      var vs=speechSynthesis.getVoices(), v=vs.find(function(x){ return /^ja/i.test(x.lang); });
+      var u=new SpeechSynthesisUtterance(v?jp:romaji); if(v){ u.voice=v; u.lang=v.lang; } u.rate=1.15; u.pitch=0.75; u.volume=1;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  if("speechSynthesis" in window){ try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=function(){}; }catch(e){} }
+
+  function celebrate(btn){
+    var r=btn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+    var s=SHOUTS[Math.floor(Math.random()*SHOUTS.length)];
+    if(soundOn){ taiko(); setTimeout(function(){ taiko(); },140); speak(s[0],s[1]); }
+    var sh=document.createElement("div"); sh.className="shout"; sh.style.left=cx+"px"; sh.style.top=(r.top-44)+"px";
+    sh.textContent=s[0]; var sm=document.createElement("small"); sm.textContent=s[1]; sh.appendChild(sm); document.body.appendChild(sh);
+    setTimeout(function(){ sh.remove(); },1600);
+    if(reduce) return;
+    var layer=document.createElement("div"); layer.className="burst"; document.body.appendChild(layer);
+    var parts=[]; for(var i=0;i<30;i++){
+      var el=document.createElement("span"); el.textContent=EMOJI[Math.floor(Math.random()*EMOJI.length)];
+      var a=Math.random()*Math.PI*2, sp=5+Math.random()*9; el.style.fontSize=(22+Math.random()*22)+"px";
+      layer.appendChild(el); parts.push({el:el,x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-6,r:Math.random()*360,vr:(Math.random()-.5)*24});
+    }
+    var t0=performance.now();
+    (function step(now){
+      var dt=now-t0, fade=dt>800?Math.max(0,1-(dt-800)/500):1;
+      parts.forEach(function(p){ p.vy+=0.42; p.vx*=0.985; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
+        p.el.style.transform="translate("+(p.x-15)+"px,"+(p.y-15)+"px) rotate("+p.r+"deg) scale("+(dt<120?0.4+dt/200:1)+")"; p.el.style.opacity=fade; });
+      if(dt<1300) requestAnimationFrame(step); else layer.remove();
+    })(t0);
+  }
+
+  async function onVote(k,btn){
+    if(!db||!me||busy) return; busy=true;
+    var prev=votes[me], ref=db.doc("votes/"+me);
+    if(prev!==k) celebrate(btn);
+    async function write(){ if(prev===k) await ref.delete(); else await ref.set({pick:k,at:Date.now()}); }
+    try{ await write(); note=""; }
+    catch(e){
+      var code=e&&e.code;
+      if(code==="unavailable"){ try{ await new Promise(function(r){ setTimeout(r,400+Math.random()*600); }); await write(); note=""; }catch(e2){ note="Your vote didn't save. Try again in a moment."; } }
+      else if(code==="invalid_argument"||code==="not_granted"){ canWrite=false; note="You can see the votes, but your access is view-only. Ask Micah to invite you with edit access."; }
+      else { note="Your vote didn't save. Try again in a moment."; }
+    }
+    busy=false; render();
+  }
+
+  if(!window.claude||typeof window.claude.use!=="function"){ linkMode(); return; }
+  render();
+  Promise.all([claude.use("db"),claude.use("user")]).then(async function(res){
+    db=res[0]; user=res[1];
+    if(!db){ note="Sign in to Claude to see and cast votes."; ready=true; render(); return; }
+    me=user?await user.id():null;
+    var cw=user?await user.can("data.write"):null;
+    canWrite=!!me&&cw!==false;
+    if(!me) note="Sign in to Claude to vote.";
+    else if(cw===false) note="Your access is view-only, so you can see votes but not cast one. Ask Micah for edit access.";
+    var timer=setTimeout(function(){ if(!live){ note="Votes can't be reached yet. They'll appear when the connection returns."; ready=true; render(); } },10000);
+    db.collection("votes").onSnapshot(function(snap){
+      var v={}; snap.docs.forEach(function(d){ var x=d.data(); if(x&&typeof x.pick==="string") v[d.id]=x.pick; });
+      votes=v;
+      if(!snap.metadata.fromCache){ live=true; clearTimeout(timer); if(/can't be reached/.test(note)) note=""; }
+      ready=true; render();
+    },function(){ clearTimeout(timer); ready=true; canWrite=false; note="Votes are unavailable right now."; render(); });
+  });
 })();
 </script>
 </body>
