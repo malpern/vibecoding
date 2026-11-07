@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="image" href="img/irene.jpg">
+<link rel="preload" as="image" href="img/irene-blur.jpg">
 <style>:root{color-scheme:light dark}body{margin:0;font-size:14px;background:#07060a}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Dinner Before Sedaris</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
@@ -181,6 +182,7 @@ html.quake .wrap{animation:quake .5s linear .26s 2}
 .tk-admit b{font:900 22px var(--display);letter-spacing:0;color:var(--paper-ink);vertical-align:-2px;margin-left:4px}
 .tk-barcode{width:120px;height:34px;background:repeating-linear-gradient(90deg,var(--paper-ink) 0 2px,transparent 2px 4px,var(--paper-ink) 4px 5px,transparent 5px 8px,var(--paper-ink) 8px 11px,transparent 11px 12px,var(--paper-ink) 12px 13px,transparent 13px 16px);opacity:.8}
 .tk-no{font:400 11px var(--type);letter-spacing:.14em;color:var(--paper-mute)}
+.tk-bday{white-space:nowrap}
 .fanline{font-size:12px;color:var(--muted);margin:-14px 0 18px}
 @media (max-width:640px){
   .ticket{grid-template-columns:1fr;transform:none;-webkit-mask:none;mask:none}
@@ -195,9 +197,11 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
 .intro{position:fixed;inset:0;z-index:200;background:#07060a;color:#f6efe3;overflow:hidden;clip-path:circle(150% at 48% 46%)}
 .intro.iris{transition:clip-path 1.25s cubic-bezier(.7,0,.25,1);clip-path:circle(0% at 48% 46%)}
 .in-photo{position:absolute;inset:0;opacity:0;animation:inPhoto 1.6s ease-out 3.7s forwards}
-.in-photo img{width:100%;height:100%;max-width:none;object-fit:cover;object-position:48% 47%;transform-origin:48% 49%;filter:saturate(.82) contrast(1.08) sepia(.14) brightness(.92);animation:kenburns 6.4s cubic-bezier(.25,.1,.25,1) 3.7s both}
+.in-back{position:absolute;inset:-40px;background:url(img/irene-blur.jpg) center/cover;filter:blur(28px) saturate(.7) brightness(.55)}
+.in-frame{position:absolute;left:50%;top:50%;height:100vh;width:66.5vh;margin-left:-33.25vh;margin-top:-50vh;transform-origin:47.7% 49.5%;animation:kenburns 6.6s cubic-bezier(.33,0,.2,1) 3.7s both;box-shadow:0 0 120px 40px rgba(5,4,8,.55)}
+.in-frame img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;filter:saturate(.84) contrast(1.08) sepia(.12) brightness(.94)}
 @keyframes inPhoto{to{opacity:1}}
-@keyframes kenburns{0%{transform:scale(1.04) translateY(1%)}100%{transform:scale(1.85) translateY(0)}}
+@keyframes kenburns{0%{transform:scale(1) translateY(2%)}100%{transform:scale(2.7) translateY(-3%)}}
 .in-shade{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 48% 42%,transparent 25%,rgba(5,4,8,.55) 75%),linear-gradient(to top,rgba(5,4,8,.88) 0,rgba(5,4,8,.35) 38%,transparent 60%);animation:inPhoto 1.6s ease-out 3.9s forwards}
 .in-bar{position:absolute;left:0;right:0;height:0;background:#07060a;z-index:3;animation:bars 1.2s cubic-bezier(.6,0,.2,1) 3.4s forwards}
 .in-bar.top{top:0}.in-bar.bot{bottom:0}
@@ -232,7 +236,7 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){
   .intro *{animation-duration:.01s!important;animation-delay:0s!important}
   .in-scene.one{display:none}
-  .in-photo img{transform:scale(1.3)}
+  .in-frame{transform:scale(2)}
   .intro.iris{transition:opacity .6s;clip-path:none;opacity:0}
 }
 </style>
@@ -241,7 +245,7 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
 <body>
 <div class="wrap">
 <div id="intro" class="intro" aria-label="Opening titles" role="dialog">
-  <div class="in-photo"><img src="img/irene.jpg" alt="Irene laughing in a tall-grass meadow, hands on her hips" decoding="async"></div>
+  <div class="in-photo"><div class="in-back"></div><div class="in-frame"><img src="img/irene.jpg" alt="Irene laughing in a tall-grass meadow, hands on her hips" decoding="async"></div></div>
   <div class="in-shade"></div>
   <div class="in-bar top"></div><div class="in-bar bot"></div>
   <div class="in-scene one">
@@ -294,7 +298,7 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   <button id="adminToggle" class="admin-btn gear" type="button" aria-pressed="false" aria-label="Admin view" title="Admin view"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   <div class="ticket" id="ticket">
     <div class="tk-main">
-      <div class="tk-eyebrow">A night out with the Alperns &amp; the Tollingers · Irene turns 50</div>
+      <div class="tk-eyebrow">A night out with the Alperns &amp; the Tollingers <span class="tk-bday">· Irene turns 50</span></div>
       <div class="tk-title">An Evening with <span class="tk-name">David Sedaris<svg class="tk-scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 60 4, 120 22, 180 10 S 270 6, 297 14" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M40 20 C 110 14, 190 21, 260 17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".6"/></svg></span></div>
       <div class="tk-meta"><span>War Memorial Opera House</span><span>301 Van Ness Ave</span><span>Sat, Nov 14 · 8:00 PM</span></div>
       <div class="tk-count" id="countdown" aria-live="off"></div>
