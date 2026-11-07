@@ -92,6 +92,7 @@ html:not(.admin) .btn.route{background:var(--accent);color:var(--accent-ink);bor
 .admin-btn{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));font:600 13px var(--body);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .admin-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .admin-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.admin-btn.gear{width:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center}
 /* Voting */
 .corner{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;gap:8px}
 .corner .admin-btn{position:static}
@@ -112,6 +113,13 @@ html:not(.admin) .btn.route{background:var(--accent);color:var(--accent-ink);bor
 .tally .chip.lead{background:var(--accent);color:var(--accent-ink)}
 .tally .msg{color:var(--muted)}
 .tally a{color:var(--accent);font-weight:600}
+.picker{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.picker .msg{color:var(--muted)}
+.who{font:600 14px var(--body);padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.who[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.who:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vname{font-size:12.5px;font-weight:600;background:var(--chip);border-radius:999px;padding:3px 9px;margin-right:4px}
+.vname.me{background:var(--fg);color:var(--bg)}
 .burst{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
 .burst span{position:absolute;left:0;top:0;font-size:30px;line-height:1;will-change:transform,opacity}
 .shout{position:fixed;z-index:51;pointer-events:none;font:700 21px var(--display);background:var(--fg);color:var(--bg);padding:8px 15px;border-radius:14px;white-space:nowrap;animation:shout 1.5s ease-out forwards}
@@ -124,7 +132,7 @@ html:not(.admin) .btn.route{background:var(--accent);color:var(--accent-ink);bor
 <body>
 <div class="wrap">
 <header>
-  <button id="adminToggle" class="admin-btn" type="button" aria-pressed="false">Admin</button>
+  <button id="adminToggle" class="admin-btn gear" type="button" aria-pressed="false" aria-label="Admin view" title="Admin view"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   <h1>Dinner before David Sedaris, Saturday Nov 14</h1>
   <p class="lede">Six places with a table for four open on Nov 14 that can get you to the War Memorial Opera House before the 8:00 PM curtain. Omakase counters first, then the two Michelin-starred Thai rooms nearby. Click the thumbnails to flip through food and room photos.</p>
   <div class="show">
@@ -326,7 +334,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
 });
 (function(){
   var b=document.getElementById("adminToggle"), root=document.documentElement;
-  function set(on){ root.classList.toggle("admin",on); b.setAttribute("aria-pressed",on?"true":"false"); b.textContent=on?"Admin on":"Admin"; }
+  function set(on){ root.classList.toggle("admin",on); b.setAttribute("aria-pressed",on?"true":"false"); }
   var saved=false; try{ saved=localStorage.getItem("sedarisAdmin")==="1"; }catch(e){}
   set(saved);
   b.addEventListener("click",function(){ var on=!root.classList.contains("admin"); set(on); try{ localStorage.setItem("sedarisAdmin",on?"1":"0"); }catch(e){} });
@@ -344,11 +352,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
   // Corner controls: sound toggle beside Admin
   var corner=document.createElement("div"); corner.className="corner";
   var admin=document.getElementById("adminToggle");
-  var snd=document.createElement("button"); snd.type="button"; snd.className="admin-btn"; snd.id="soundToggle";
-  var soundOn=true; try{ soundOn=localStorage.getItem("sedarisSound")!=="0"; }catch(e){}
-  function paintSnd(){ snd.textContent=soundOn?"Sound on":"Sound off"; snd.setAttribute("aria-pressed",soundOn?"true":"false"); }
-  snd.addEventListener("click",function(){ soundOn=!soundOn; paintSnd(); try{ localStorage.setItem("sedarisSound",soundOn?"1":"0"); }catch(e){} });
-  paintSnd(); corner.appendChild(snd); if(admin) corner.appendChild(admin); document.body.appendChild(corner);
+  var soundOn=true; if(admin) corner.appendChild(admin); document.body.appendChild(corner);
 
   // Vote bar on each card
   var bars={};
@@ -389,6 +393,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
       b.btn.disabled=!(canWrite&&ready);
       b.count.textContent=list.length?list.length+(list.length===1?" vote":" votes"):"";
       b.bar.classList.toggle("leading",leaders.length===1&&leaders[0]===k);
+      if(api){ b.voters.replaceChildren.apply(b.voters,list.map(function(id){ var s=document.createElement("span"); s.className="vname"+(id===me?" me":""); s.textContent=id===me?"You":id; return s; })); return; }
       b.voters.replaceChildren.apply(b.voters,list.map(function(id){
         var p=ps[id]||{}, img=document.createElement("img"); img.className="av"; img.alt=""; if(p.avatarUrl) img.src=p.avatarUrl;
         img.title=p.isMe?"You":(p.name||"Someone"); return img;
@@ -452,6 +457,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
   }
 
   async function onVote(k,btn){
+    if(api) return apiVote(k,btn);
     if(!db||!me||busy) return; busy=true;
     var prev=votes[me], ref=db.doc("votes/"+me);
     if(prev!==k) celebrate(btn);
@@ -466,7 +472,48 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
     busy=false; render();
   }
 
-  if(!window.claude||typeof window.claude.use!=="function"){ linkMode(); return; }
+  // ---- GitHub Pages mode: votes go to a small public API ----
+  var API_URL="https://sedaris-votes.vercel.app/api/votes";
+  var VOTERS=["Micah","Irene","Preston","Sarah"];
+  var api=false, picker=null, pollTimer=null;
+  function savedVoter(){ try{ var v=localStorage.getItem("sedarisVoter"); return VOTERS.indexOf(v)>=0?v:null; }catch(e){ return null; } }
+  function paintPicker(){
+    if(!picker) return;
+    picker.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.v===me?"true":"false"); });
+  }
+  function buildPicker(){
+    picker=document.createElement("div"); picker.className="picker"; picker.setAttribute("role","group"); picker.setAttribute("aria-label","Who's voting?");
+    var lab=document.createElement("span"); lab.className="msg"; lab.textContent="Who's voting?"; picker.appendChild(lab);
+    VOTERS.forEach(function(v){ var b=document.createElement("button"); b.type="button"; b.className="who"; b.dataset.v=v; b.textContent=v;
+      b.addEventListener("click",function(){ me=v; try{ localStorage.setItem("sedarisVoter",v); }catch(e){} canWrite=true; note=""; paintPicker(); render(); }); picker.appendChild(b); });
+    document.querySelector("header").insertBefore(picker,tally);
+    paintPicker();
+  }
+  async function fetchVotes(){
+    try{
+      var r=await fetch(API_URL,{cache:"no-store"}); if(!r.ok) throw new Error(r.status);
+      var j=await r.json(); votes=j.votes||{}; ready=true; if(/can't be reached/.test(note)) note="";
+    }catch(e){ ready=true; if(!Object.keys(votes).length) note="Votes can't be reached right now. Try reloading in a minute."; }
+    render();
+  }
+  function startApi(){
+    api=true; me=savedVoter(); canWrite=true; buildPicker(); render(); fetchVotes();
+    pollTimer=setInterval(function(){ if(!document.hidden&&!busy) fetchVotes(); },12000);
+    document.addEventListener("visibilitychange",function(){ if(!document.hidden) fetchVotes(); });
+  }
+  async function apiVote(k,btn){
+    if(busy) return;
+    if(!me){ note="Tap your name above first, then vote."; render(); picker&&picker.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"}); return; }
+    busy=true; var prev=votes[me], pick=prev===k?null:k;
+    if(pick) celebrate(btn);
+    var opt=Object.assign({},votes); if(pick) opt[me]=pick; else delete opt[me]; votes=opt; render();
+    try{
+      var r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({voter:me,pick:pick})});
+      if(!r.ok) throw new Error(r.status); var j=await r.json(); votes=j.votes||votes; note="";
+    }catch(e){ note="Your vote didn't save. Try again in a moment."; await fetchVotes(); }
+    busy=false; render();
+  }
+  if(!window.claude||typeof window.claude.use!=="function"){ startApi(); return; }
   render();
   Promise.all([claude.use("db"),claude.use("user")]).then(async function(res){
     db=res[0]; user=res[1];
