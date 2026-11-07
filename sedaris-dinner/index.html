@@ -51,6 +51,15 @@ h2{font-family:var(--display);font-weight:700;font-size:26px;margin:0;line-heigh
 .kv .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .kv .v{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;margin-top:2px}
 .kv .v small{font-weight:400;color:var(--muted);font-size:12px;display:block}
+.kv.price{position:relative}
+.kv.price .v{letter-spacing:.08em}
+.kv.price .amt{display:none}
+@media (hover:hover) and (pointer:fine){
+  .kv.price{cursor:help}
+  .kv.price .amt{display:block;position:absolute;left:0;top:100%;margin-top:6px;z-index:5;background:var(--fg);color:var(--bg);font-size:12.5px;font-weight:500;letter-spacing:0;line-height:1.35;padding:8px 10px;border-radius:8px;width:max-content;max-width:240px;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+  .kv.price:hover .amt,.kv.price:focus-within .amt{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){ .kv.price .amt{transition:none} }
 .slots{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .slot{font-variant-numeric:tabular-nums;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--good);color:#fff;font-size:14px}
 .slot.late{background:var(--chip);color:var(--muted);text-decoration:line-through;font-weight:500}
@@ -87,7 +96,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <span><b>Venue:</b> War Memorial Opera House, 301 Van Ness Ave</span>
     <span><b>Party:</b> 4 · <b>Checked:</b> Nov 7, 2026</span>
   </div>
-  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = open for 4 and done before 8</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = open, with a catch</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = after curtain</span></div>
+  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = open for 4 and done before 8</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = open, with a catch</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = after curtain</span><span>Price: $ under $75 · $$ $75 to $150 · $$$ over $150 per person. Hover the price for the actual number.</span></div>
 </header>
 
 <!-- SATO -->
@@ -106,7 +115,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Sato Omakase</h2><div class="sub">1117 Polk St · Edomae-style, 18 courses · Michelin Plate</div></div><span class="badge">Top pick</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">14 min<small>0.7 mi down Polk and Van Ness</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">$195<small>per person + 20% service; $100/pp deposit</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$195 per person, 18 courses, plus 20% service. $100 per person deposit, applied to the bill.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>332 reviews · Infatuation 8.3</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM sushi bar</span><span class="note">4 slots left when checked</span></div>
@@ -131,7 +140,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Hinata Sushi</h2><div class="sub">810 Van Ness Ave · Omakase prix fixe</div></div><span class="badge star">Closest</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">8 min<small>0.4 mi straight down Van Ness</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">~$128<small>per person, prix fixe</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>per person</small></div><div class="amt">About $128 per person, prix fixe omakase.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.9 OpenTable<small>306 reviews · Time Out 5/5</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM omakase</span><span class="note">3 slots left when checked</span></div>
@@ -159,7 +168,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Robin</h2><div class="sub">620 Gough St · Contemporary omakase, you set the spend</div></div><span class="badge star">Patio only</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">6 min<small>0.3 mi, Gough to Grove</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">$109 to $209<small>per person, you pick the tier</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$ to $$$<small>you pick the tier</small></div><div class="amt">$109 to $209 per person. You choose the spend when you sit down and the courses scale to it.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.7 Resy<small>9.4K reviews · Google 4.5 · Infatuation 8.3</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot warn">5:30 PM outdoor</span><span class="slot late">8:30 PM dining room</span><span class="slot late">9:30 PM</span></div>
@@ -186,7 +195,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Wako</h2><div class="sub">211 Clement St, Inner Richmond · Michelin-recommended omakase</div></div><span class="badge star">Needs a car</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Ride to show</div><div class="v">15 min<small>3.2 mi via Geary; no sane walk</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">$165<small>omakase · $120 sushi tasting</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$165 per person for the omakase, or $120 for the sushi tasting.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>779 reviews · Infatuation 8.4</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
@@ -212,7 +221,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Kin Khao</h2><div class="sub">55 Cyril Magnin St (Parc 55 hotel) · Thai, à la carte</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
       <div class="kv"><div class="k">Walk to show</div><div class="v">16 min<small>0.8 mi along Market and Grove</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">$60 to $90<small>per person, shared plates</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>shared plates</small></div><div class="amt">Roughly $60 to $90 per person, à la carte and shared.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>15K reviews · OpenTable 4.3 · Time Out 5/5</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
@@ -239,7 +248,7 @@ blockquote cite{display:block;font-style:normal;color:var(--muted);font-size:12p
     <div class="top"><div><h2>Nari</h2><div class="sub">1625 Post St (Hotel Kabuki), Japantown · Thai, family style</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
       <div class="kv"><div class="k">To the show</div><div class="v">7 min ride<small>1.1 mi; a 22 min walk down Gough</small></div></div>
-      <div class="kv"><div class="k">Price</div><div class="v">$80 to $125<small>per person; tasting menu from $125</small></div></div>
+      <div class="kv price" tabindex="0"><div class="k">Price</div><div class="v">$$<small>family style</small></div><div class="amt">Roughly $80 to $125 per person; the set tasting menu starts at $125.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>7.4K reviews</small></div></div>
     </div>
     <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot late">7:45 PM</span><span class="slot late">8:00 PM</span></div>
