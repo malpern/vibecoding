@@ -241,6 +241,24 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
 }
 </style>
 
+<style>
+/* Walk-only edit: a printed road-closure notice, with a sushi taxi being towed off the ballot. */
+.checked{font-size:12.5px;color:var(--muted);line-height:1.65;margin:14px 0}
+.no-car-note{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--fg);background:var(--chip);border:2px dashed var(--accent);border-radius:12px;padding:14px 16px;margin-top:18px;font-size:13px}
+.no-car-note>span:first-child{font-size:30px;white-space:nowrap}.no-car-note strong{font-family:var(--display);font-size:20px}
+.shortlist-title{font-size:24px;margin:0 0 20px}.shortlist-title span{display:block;font:400 13px var(--body);color:var(--muted);margin-top:7px}
+.slot-source{font-size:11.5px;color:var(--muted);margin:-6px 0 0}.slot.warn{background:#f3cc72;color:#352409}
+.car-exile{scroll-margin-top:25px;position:relative;overflow:hidden;background:#ffe8b2;color:#29201b;border:3px solid #29201b;border-radius:16px;margin:42px 0 30px;box-shadow:7px 7px 0 var(--line)}
+.exile-tape{background:repeating-linear-gradient(135deg,#29201b 0 14px,#f5bf38 14px 28px);height:28px;overflow:hidden;font:700 11px/28px var(--type);letter-spacing:.12em;color:transparent;user-select:none}
+.exile-layout{display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:22px;padding:36px 30px}
+.exile-art{position:relative;min-width:0;overflow:hidden;padding-top:25px}.exile-cloud{font:700 clamp(17px,2.3vw,25px)/1.15 var(--display);transform:rotate(-6deg);text-align:center;margin:0 auto 4px;background:#fff7e5;border:2px solid #29201b;border-radius:50%;padding:23px 15px;max-width:260px}
+.sushi-taxi{display:block;width:100%;max-width:400px;margin:0 auto;transform-origin:center bottom}.exile-road{height:9px;border-top:3px solid #29201b;border-bottom:3px dashed #29201b;margin:0 3% 15px}
+.exile-kicker{font:700 11.5px var(--type);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}.exile-copy h2{font-size:clamp(34px,4.3vw,48px);line-height:1.04}.exile-copy h2 s{font-size:.65em;text-decoration-thickness:3px;color:#6d4935}.exile-copy p{font-size:14px;line-height:1.6;margin:14px 0}.exile-copy .exile-small{font-size:12px;color:#67503b}
+.drive-stamp{display:inline-block;border:4px double #a22b24;color:#a22b24;font:700 clamp(21px,3vw,30px) var(--type);letter-spacing:.06em;transform:rotate(-6deg);padding:4px 12px;margin-top:18px}
+.tow-again{font:700 13px var(--body);border:2px solid #29201b;border-radius:999px;background:#29201b;color:#fff3d7;padding:9px 17px;cursor:pointer}.tow-again:focus-visible{outline:3px solid #a22b24;outline-offset:4px}
+@media(prefers-reduced-motion:no-preference){.car-exile.towing .sushi-taxi{animation:taxi-exit 1.7s cubic-bezier(.45,0,.55,1) both}@keyframes taxi-exit{0%{transform:translateX(0) rotate(0)}18%{transform:translateX(-8px) rotate(-4deg)}60%{transform:translateX(120%) rotate(3deg)}61%{transform:translateX(-120%)}100%{transform:translateX(0)}}}
+@media(max-width:640px){.exile-layout{grid-template-columns:1fr;padding:24px 22px;gap:8px}.exile-art{padding-top:0}.sushi-taxi{max-width:300px}.exile-cloud{font-size:21px;padding:15px}.exile-copy h2{font-size:38px}.no-car-note{align-items:flex-start}.no-car-note>span:first-child{font-size:22px}.no-car-note strong{font-size:18px}.skip td:first-child{white-space:normal}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -319,9 +337,12 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   </div>
   <p class="fanline">Unofficial fan page made for four friends. Not affiliated with David Sedaris or the venue.</p>
   <h1>Where should we eat first?</h1>
-  <p class="lede">Dinner first, Sedaris after. Six places with a table for four open on Nov 14 that can get you to the War Memorial Opera House before the 8:00 PM curtain. Omakase counters first, then the two Michelin-starred Thai rooms nearby. Click the thumbnails to flip through food and room photos.</p>
-  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = open for 4 and done before 8</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = open, with a catch</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = after curtain</span><span class="admin-only">Price: $ under $75 · $$ $75 to $150 · $$$ over $150 per person. Hover the price for the actual number.</span></div>
+  <p class="lede">Dinner first, Sedaris after. Five places within a 25-minute walk of the Opera House, with early seats for four on Nov 14. Park once, eat well, walk to the 8:00 PM curtain. Wako has been towed out of the shortlist. Click the thumbnails to flip through food and room photos.</p>
+  <div class="legend"><span class="slot" style="font-size:12px;padding:3px 8px">green = available for 4; sensible pre-show start</span><span class="slot warn" style="font-size:12px;padding:3px 8px">amber = outdoor or timing needs confirmation</span><span class="slot late" style="font-size:12px;padding:3px 8px">crossed = too late for dinner before the show</span><span class="admin-only">Price: $ under $75 · $$ $75 to $150 · $$$ over $150 per person. Hover the price for the actual number.</span></div>
+  <p class="checked">Rechecked <time datetime="2026-11-08T10:13:00-08:00">Sun, Nov 8 · 10:13 AM Pacific</time> · Sat, Nov 14 · 4 guests.<br>Times are a snapshot, not a reservation. Aim to arrive at the venue by 7:45 PM.</p>
+  <a class="no-car-note" href="#wako"><span aria-hidden="true">🚫 🚕</span><span><strong>Wako is out. The car is not invited.</strong><br>Five walkable contenders below. One automotive exile at the bottom. ↓</span></a>
 </header>
+<h2 class="shortlist-title">The walk-to-the-show shortlist <span>5 contenders · 3–22 min on foot</span></h2>
 
 <!-- SATO -->
 <section class="card pick" id="sato">
@@ -338,15 +359,15 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   <div class="facts">
     <div class="top"><div><h2>Sato Omakase</h2><div class="sub">1117 Polk St · Edomae-style, 18 courses · Michelin Plate</div></div><span class="badge">Top pick</span></div>
     <div class="grid">
-      <div class="kv"><div class="k">Walk to show</div><div class="v">14 min<small>0.7 mi down Polk and Van Ness</small></div></div>
+      <div class="kv"><div class="k">Walk to show</div><div class="v">14 min<small>0.6 mi via Van Ness</small></div></div>
       <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$195 per person, 18 courses, plus 20% service. $100 per person deposit, applied to the bill.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>332 reviews · Infatuation 8.3</small></div></div>
     </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM sushi bar</span><span class="note">4 slots left when checked</span></div>
-    <p class="note" style="margin:0">Sit 5:30, finish around 7:30, and you are at the Opera House by 7:45 on foot.</p>
+    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:00 PM sushi bar</span><span class="slot">5:30 PM sushi bar</span><span class="slot warn">6:00 PM — tight</span></div><p class="slot-source">Checked Nov 8, 10:13 AM PT · availability can change.</p>
+    <p class="note" style="margin:0">5:00 is the relaxed choice; 5:30 targets a 7:30 finish and a 14-minute walk. Tell the restaurant about the show. 6:00 is bookable but needs a confirmed earlier finish; later seats are too late.</p>
     <blockquote>"We have enjoyed omakase at many of the best rated sushi restaurants in the US, and Sato is at the top without a doubt."<cite>David, OpenTable, dined Oct 9, 2026</cite></blockquote>
     <blockquote>"Butter-poached lobster is decked out with caviar, and black truffle is shaved over melt-in-your-mouth seared yellowtail."<cite>The Infatuation, 8.3</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/sato-omakase-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/1117+Polk+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/sato-omakase-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Sato+Omakase,+1117+Polk+St,+San+Francisco&amp;destination=War+Memorial+Opera+House,+301+Van+Ness+Ave,+San+Francisco&amp;travelmode=walking">Walking route</a></div>
   </div>
 </section>
 
@@ -361,17 +382,17 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
     </div>
   </div>
   <div class="facts">
-    <div class="top"><div><h2>Hinata Sushi</h2><div class="sub">810 Van Ness Ave · Omakase prix fixe</div></div><span class="badge star">Closest</span></div>
+    <div class="top"><div><h2>Hinata Sushi</h2><div class="sub">810 Van Ness Ave · Omakase prix fixe</div></div><span class="badge star">Easy walk</span></div>
     <div class="grid">
-      <div class="kv"><div class="k">Walk to show</div><div class="v">8 min<small>0.4 mi straight down Van Ness</small></div></div>
-      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>per person</small></div><div class="amt">About $128 per person, prix fixe omakase.</div></div>
+      <div class="kv"><div class="k">Walk to show</div><div class="v">7 min<small>0.3 mi straight down Van Ness</small></div></div>
+      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>per person</small></div><div class="amt">$138 per person for the listed Omakase experience, before service charge, tax and SF mandate.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.9 OpenTable<small>306 reviews · Time Out 5/5</small></div></div>
     </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM omakase</span><span class="note">3 slots left when checked</span></div>
-    <p class="note" style="margin:0">The easiest logistics of the group. A step down in ambition from Sato or Wako.</p>
+    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM omakase</span><span class="slot warn">6:00 PM — confirm finish</span></div><p class="slot-source">Checked Nov 8, 10:13 AM PT · availability can change.</p>
+    <p class="note" style="margin:0">5:30 is the safer pre-show choice, with a 7-minute walk afterward. 6:00 is also bookable, but confirm the meal can end by 7:35. The other available seats start at 7:30 or later.</p>
     <blockquote>"Always one of my favorite omakase spots. The staff is amazing, the food is unreal, and such a cute nice vibe."<cite>Nikki, OpenTable, dined Oct 29, 2026</cite></blockquote>
     <blockquote>"An 'amazing' omakase experience with 'fantastic' food and 'thoughtful' service at a remarkable price point."<cite>OpenTable review summary, 306 reviews</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/hinata-sushi-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/810+Van+Ness+Ave,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://www.opentable.com/r/hinata-sushi-san-francisco?covers=4&dateTime=2026-11-14T17%3A30">Book on OpenTable</a><a class="btn route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Hinata+Sushi,+810+Van+Ness+Ave,+San+Francisco&amp;destination=War+Memorial+Opera+House,+301+Van+Ness+Ave,+San+Francisco&amp;travelmode=walking">Walking route</a></div>
   </div>
 </section>
 
@@ -391,42 +412,15 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   <div class="facts">
     <div class="top"><div><h2>Robin</h2><div class="sub">620 Gough St · Contemporary omakase, you set the spend</div></div><span class="badge star">Patio only</span></div>
     <div class="grid">
-      <div class="kv"><div class="k">Walk to show</div><div class="v">6 min<small>0.3 mi, Gough to Grove</small></div></div>
+      <div class="kv"><div class="k">Walk to show</div><div class="v">3 min<small>0.2 mi via Fulton</small></div></div>
       <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$ to $$$<small>you pick the tier</small></div><div class="amt">$109 to $209 per person. You choose the spend when you sit down and the courses scale to it.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.7 Resy<small>9.4K reviews · Google 4.5 · Infatuation 8.3</small></div></div>
     </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot warn">5:30 PM outdoor</span><span class="slot late">8:30 PM dining room</span><span class="slot late">9:30 PM</span></div>
-    <p class="note" style="margin:0">Best location of the group, but for four the only pre-show table is the patio. For two, the sushi bar at 5:30 is open.</p>
+    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot warn">5:30 PM outdoor only</span><span class="slot late">8:00 PM onward</span></div><p class="slot-source">Checked Nov 8, 10:13 AM PT · availability can change.</p>
+    <p class="note" style="margin:0">The only early seat for four is outdoors. Resy describes a two-hour experience: 5:30 should finish around 7:30, then a 3-minute walk. Indoor availability begins at 8:30; other outdoor seats begin at 8:00.</p>
     <blockquote>"For milestone date nights or an extra nice dinner before a show nearby, this place always adds up to a fun time."<cite>The Infatuation, 8.3</cite></blockquote>
     <blockquote>"Whatever you do, just make sure you get the A5 tartare. It's A-plus."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/robin-san-francisco?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/620+Gough+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
-  </div>
-</section>
-
-<!-- WAKO -->
-<section class="card" id="wako">
-  <div class="viewer" data-viewer>
-    <div class="main"><img src="img/wako-1.jpg" alt="Firefly squid plate at Wako"><div class="cap">Firefly squid with tomato and greens</div></div>
-    <div class="thumbs">
-      <button aria-pressed="true" data-src="img/wako-1.jpg" data-cap="Firefly squid with tomato and greens"><img src="img/wako-1.jpg" alt=""></button>
-      <button data-src="img/wako-3.jpg" data-cap="Course from the omakase"><img src="img/wako-3.jpg" alt=""></button>
-      <button data-src="img/wako-4.jpg" data-cap="Course from the omakase"><img src="img/wako-4.jpg" alt=""></button>
-      <button data-src="img/wako-5.jpg" data-cap="Nigiri from the omakase"><img src="img/wako-5.jpg" alt=""></button>
-      <button data-src="img/wako-2.jpg" data-cap="The room on Clement St"><img src="img/wako-2.jpg" alt=""></button>
-    </div>
-  </div>
-  <div class="facts">
-    <div class="top"><div><h2>Wako</h2><div class="sub">211 Clement St, Inner Richmond · Michelin-recommended omakase</div></div><span class="badge star">Needs a car</span></div>
-    <div class="grid">
-      <div class="kv"><div class="k">Ride to show</div><div class="v">15 min<small>3.2 mi via Geary; no sane walk</small></div></div>
-      <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$$<small>per person</small></div><div class="amt">$165 per person for the omakase, or $120 for the sushi tasting.</div></div>
-      <div class="kv"><div class="k">Ratings</div><div class="v">4.8 OpenTable<small>779 reviews · Infatuation 8.4</small></div></div>
-    </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
-    <p class="note" style="margin:0">The most serious sushi with a seat for four. Take the 5:30, book a car for 7:30.</p>
-    <blockquote>"Don't let the quiet, quasi-suburban neighborhood fool you; this place is a true gem! We had a delicious, reasonably-priced omakase."<cite>Matt, OpenTable, dined Sep 2, 2026</cite></blockquote>
-    <blockquote>"It's a lot of food, and you get your money's worth."<cite>The Infatuation, 8.4</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://www.exploretock.com/city/san-francisco/search?date=2026-11-14&size=4&time=17%3A30&query=wako">Book on Tock</a><a class="btn route" href="https://www.google.com/maps/dir/211+Clement+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/">Driving route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/robin-san-francisco?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Robin,+620+Gough+St,+San+Francisco&amp;destination=War+Memorial+Opera+House,+301+Van+Ness+Ave,+San+Francisco&amp;travelmode=walking">Walking route</a></div>
   </div>
 </section>
 
@@ -444,14 +438,14 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   <div class="facts">
     <div class="top"><div><h2>Kin Khao</h2><div class="sub">55 Cyril Magnin St (Parc 55 hotel) · Thai, à la carte</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
-      <div class="kv"><div class="k">Walk to show</div><div class="v">16 min<small>0.8 mi along Market and Grove</small></div></div>
+      <div class="kv"><div class="k">Walk to show</div><div class="v">22 min<small>0.9 mi via McAllister</small></div></div>
       <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>shared plates</small></div><div class="amt">Roughly $60 to $90 per person, à la carte and shared.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>15K reviews · OpenTable 4.3 · Time Out 5/5</small></div></div>
     </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot">5:45 PM</span></div>
-    <p class="note" style="margin:0">Not omakase, but the fastest starred meal here: order and be out in 90 minutes. Get the rabbit green curry, pretty hot wings and khao soi.</p>
+    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM dining room</span><span class="slot">5:45 PM dining room</span><span class="slot warn">6:00 PM — tighter</span></div><p class="slot-source">Checked Nov 8, 10:13 AM PT · availability can change.</p>
+    <p class="note" style="margin:0">A longer but still walkable option. Choose 5:30 or 5:45, allow about 90 minutes to dine, and leave by 7:20 for the 22-minute walk. 6:00 needs a quicker meal; the next available dinner time is 7:30, too late.</p>
     <blockquote>"Because this celebrated Thai eatery is as delicious as it gets, churning house-made curry pastes and condiments daily, for fiery goodness."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/kin-khao?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/55+Cyril+Magnin+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/kin-khao?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Kin+Khao,+55+Cyril+Magnin+St,+San+Francisco&amp;destination=War+Memorial+Opera+House,+301+Van+Ness+Ave,+San+Francisco&amp;travelmode=walking">Walking route</a></div>
   </div>
 </section>
 
@@ -471,19 +465,57 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   <div class="facts">
     <div class="top"><div><h2>Nari</h2><div class="sub">1625 Post St (Hotel Kabuki), Japantown · Thai, family style</div></div><span class="badge star">1 Michelin star</span></div>
     <div class="grid">
-      <div class="kv"><div class="k">To the show</div><div class="v">7 min ride<small>1.1 mi; a 22 min walk down Gough</small></div></div>
+      <div class="kv"><div class="k">Walk to show</div><div class="v">19 min<small>0.9 mi via Laguna</small></div></div>
       <div class="kv price admin-only" tabindex="0"><div class="k">Price</div><div class="v">$$<small>family style</small></div><div class="amt">Roughly $80 to $125 per person; the set tasting menu starts at $125.</div></div>
       <div class="kv"><div class="k">Ratings</div><div class="v">4.5 Resy<small>7.4K reviews</small></div></div>
     </div>
-    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM</span><span class="slot late">7:45 PM</span><span class="slot late">8:00 PM</span></div>
-    <p class="note" style="margin:0">The prettiest room of the six and the best for a group of four who want to share. Sit 5:30, leave by 7:20.</p>
+    <div class="slots"><span class="note">Nov 14, party of 4:</span><span class="slot">5:30 PM dining room</span><span class="slot late">7:30 PM onward</span></div><p class="slot-source">Checked Nov 8, 10:13 AM PT · availability can change.</p>
+    <p class="note" style="margin:0">Still in: a 19-minute walk fits our 25-minute limit. The 5:30 dining-room table is the only useful pre-show slot for four. Leave by 7:20 to reach the venue around 7:40; ask for that finish when booking.</p>
     <blockquote>"Pim Techamuanvivit has created one of the country's most exciting restaurants, a women-led operation that expertly (and deliciously) blends Thai traditions, California ingredients, and best-in-class hospitality."<cite>Resy editors</cite></blockquote>
-    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/nari?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/1625+Post+St,+San+Francisco/301+Van+Ness+Ave,+San+Francisco/data=!4m2!4m1!3e2">Walking route</a></div>
+    <div class="links"><a class="btn primary admin-only" href="https://resy.com/cities/san-francisco-ca/venues/nari?date=2026-11-14&seats=4">Book on Resy</a><a class="btn route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Nari,+1625+Post+St,+San+Francisco&amp;destination=War+Memorial+Opera+House,+301+Van+Ness+Ave,+San+Francisco&amp;travelmode=walking">Walking route</a></div>
+  </div>
+</section>
+
+<section class="car-exile" id="wako" aria-labelledby="wako-title">
+  <div class="exile-tape" aria-hidden="true">ROAD TRIP CANCELLED · ROAD TRIP CANCELLED · ROAD TRIP CANCELLED</div>
+  <div class="exile-layout">
+    <div class="exile-art" aria-hidden="true">
+      <div class="exile-cloud">Omakase? Yes.<br>Parallel parking? No.</div>
+      <svg class="sushi-taxi" viewBox="0 0 360 230" fill="none">
+        <ellipse cx="182" cy="202" rx="137" ry="10" fill="#211c19" opacity=".14"/>
+        <g stroke="#211c19" stroke-width="5" stroke-linejoin="round">
+          <path d="M64 129L95 80H239L276 129Z" fill="#ffc845"/>
+          <path d="M107 90L83 129H161V90Z M174 90V129H258L230 90Z" fill="#d6f0ec"/>
+          <path d="M47 126H287Q310 126 315 148L320 177H39V147Q39 126 47 126Z" fill="#ffc845"/>
+          <path d="M40 155H318" stroke-dasharray="13 8"/>
+          <rect x="26" y="169" width="307" height="15" rx="6" fill="#f6f3ee"/>
+          <circle cx="91" cy="181" r="26" fill="#211c19"/><circle cx="91" cy="181" r="12" fill="#f6f3ee"/>
+          <circle cx="269" cy="181" r="26" fill="#211c19"/><circle cx="269" cy="181" r="12" fill="#f6f3ee"/>
+          <path d="M136 72V58H207V72" fill="#f6f3ee"/>
+          <rect x="133" y="30" width="80" height="25" rx="12" fill="#f6f3ee"/>
+          <path d="M128 32Q170 9 218 28L213 40Q171 25 132 44Z" fill="#ec785d"/>
+          <path d="M165 25V55H181V24" fill="#31594c"/>
+        </g>
+        <text x="174" y="151" text-anchor="middle" font-size="15" font-family="monospace" font-weight="bold" fill="#211c19">SUSHI EXPRESS</text>
+        <path d="M17 111H49M7 127H31M14 145H25" stroke="#211c19" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <div class="exile-road"></div>
+    </div>
+    <div class="exile-copy">
+      <div class="exile-kicker">Removed from the shortlist</div>
+      <h2 id="wako-title"><s>Wako</s><br><span>Great fish.<br>Wrong zip code.</span></h2>
+      <div class="drive-stamp">CAR REQUIRED</div>
+      <p>211 Clement St · Inner Richmond<br><strong>61 minutes on foot. 2.7 miles. Absolutely not a dinner-to-theater stroll.</strong></p>
+      <p>We came for Sedaris, not a side quest involving a parking garage. Wako is off the ballot for this night.</p>
+      <p class="exile-small">Outside our 25-minute walking limit. Reservation availability was not rechecked for this excluded option.</p>
+      <button class="tow-again" type="button" id="towAgain">Tow it again <span aria-hidden="true">↗</span></button>
+    </div>
   </div>
 </section>
 
 <div class="skip">
-  <h3>Checked and ruled out for Nov 14, party of 4</h3>
+  <h3>Earlier checks · other places ruled out</h3>
+  <p class="note">Historical Nov 7 results for four on Nov 14; these alternatives were not rechecked on Nov 8.</p>
   <table>
     <tr><td>Kiln (2 stars)</td><td>149 Fell St, three blocks from the venue, but nothing bookable on Tock for that date.</td></tr>
     <tr><td>Birdsong (2 stars)</td><td>1085 Mission St. No availability on Nov 14; next open date is Nov 16.</td></tr>
@@ -498,7 +530,7 @@ html.intro-on .tk-scribble,html.intro-on .tk-stamp{animation-play-state:paused}
   </table>
 </div>
 
-<p class="foot">Availability was read from OpenTable, Resy and Tock on Nov 7, 2026 and changes by the hour. Walk times are Google Maps estimates from each address to 301 Van Ness. Ratings and quotes come from OpenTable diner reviews, Resy editorial notes and The Infatuation. Photos are from each restaurant's OpenTable or Resy listing, and The Infatuation for Sato. Michelin status is from the 2026 California guide; Wako and Sato hold Plate recognition, not a star.</p>
+<p class="foot">The five shortlisted restaurants were rechecked on OpenTable and Resy on Nov 8, 2026 at about 10:13 AM Pacific, for four guests on Nov 14. Walking routes were rechecked on Google Maps to the War Memorial Opera House, 301 Van Ness; only routes of 25 minutes or less remain. Availability can change at any time. Meal durations and arrival times are planning estimates, not restaurant guarantees. Tell the restaurant about the 8 PM show when booking. Ratings and quotes come from OpenTable diner reviews, Resy editorial notes and The Infatuation. Photos are from each restaurant's OpenTable or Resy listing, and The Infatuation for Sato. Michelin status is from the 2026 California guide; Wako and Sato hold Plate recognition, not a star.</p>
 </div>
 
 <script>
@@ -522,7 +554,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
 </script>
 <script>
 (function(){
-  var PICKS={sato:"Sato",hinata:"Hinata",robin:"Robin",wako:"Wako",kinkhao:"Kin Khao",nari:"Nari"};
+  var PICKS={sato:"Sato",hinata:"Hinata",robin:"Robin",kinkhao:"Kin Khao",nari:"Nari"};
   var VOTE_URL="https://claude.ai/artifact/DtyGZ7Fsd6cRt18DGodaYC";
   var SHOUTS=[["いらっしゃいませ!","Irasshaimase! · Welcome, party of four!"]];
   var EMOJI=["🍣","🍣","🍣","🍤","🍙","🐟","🥢","🍥","🦐"];
@@ -562,7 +594,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
 
   async function render(){
     var byPick={}; Object.keys(votes).forEach(function(uid){ var p=votes[uid]; if(PICKS[p]) (byPick[p]=byPick[p]||[]).push(uid); });
-    var ids=Object.keys(votes), ps={};
+    var ids=Object.keys(votes).filter(function(uid){ return !!PICKS[votes[uid]]; }), ps={};
     if(user&&ids.length){ try{ ps=await user.profiles(ids); }catch(e){} }
     var max=0; Object.keys(byPick).forEach(function(k){ max=Math.max(max,byPick[k].length); });
     var leaders=Object.keys(byPick).filter(function(k){ return byPick[k].length===max&&max>0; });
@@ -589,6 +621,7 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
     } else {
       var l=document.createElement("span"); l.className="msg"; l.textContent="Loading votes…"; tally.appendChild(l);
     }
+    if(me&&votes[me]&&!PICKS[votes[me]]){ var retired=document.createElement("span"); retired.className="msg"; retired.textContent="Your earlier Wako vote is retired. Choose a walkable contender below."; tally.appendChild(retired); }
     if(note){ var n=document.createElement("span"); n.className="msg"; n.textContent=note; tally.appendChild(n); }
   }
 
@@ -774,6 +807,14 @@ document.querySelectorAll('[data-viewer]').forEach(function(v){
   }
   tick(); setInterval(tick,30000);
 
+})();
+</script>
+<script>
+(function(){
+  var exile=document.getElementById("wako"), timer;
+  function tow(){ clearTimeout(timer); exile.classList.remove("towing"); requestAnimationFrame(function(){ requestAnimationFrame(function(){ exile.classList.add("towing"); timer=setTimeout(function(){ exile.classList.remove("towing"); },1800); }); }); }
+  document.getElementById("towAgain").addEventListener("click",tow);
+  if("IntersectionObserver" in window){ var observer=new IntersectionObserver(function(entries){ if(entries.some(function(e){ return e.isIntersecting; })){ tow(); observer.disconnect(); } },{threshold:.3}); observer.observe(exile); }
 })();
 </script>
 </body>
